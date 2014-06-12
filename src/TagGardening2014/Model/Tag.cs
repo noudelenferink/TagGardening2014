@@ -15,9 +15,9 @@ namespace TagGardening2014.Web.Model
     public partial class Tag
     {
         public int TagId { get; set; }
+        public int MediaItemId { get; set; }
         public string TagValue { get; set; }
         public string Position { get; set; }
-        public int MediaItemId { get; set; }
     
         public virtual MediaItem MediaItem { get; set; }
     }

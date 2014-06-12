@@ -16,17 +16,22 @@ namespace TagGardening2014.Web.Model
     {
         public MediaItem()
         {
+            this.MediaTags = new HashSet<MediaItemMediaTag>();
             this.Tags = new HashSet<Tag>();
-            this.MediaItemMediaTag = new HashSet<MediaItemMediaTag>();
         }
     
         public int MediaItemId { get; set; }
         public int MediaTypeId { get; set; }
         public int MediaItemStatusId { get; set; }
+        public string Title { get; set; }
+        public string FileName { get; set; }
+        public string ThumbFileName { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> LastModifiedDate { get; set; }
     
-        public virtual MediaType MediaType { get; set; }
         public virtual MediaItemStatus MediaItemStatus { get; set; }
+        public virtual MediaType MediaType { get; set; }
+        public virtual ICollection<MediaItemMediaTag> MediaTags { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
-        public virtual ICollection<MediaItemMediaTag> MediaItemMediaTag { get; set; }
     }
 }

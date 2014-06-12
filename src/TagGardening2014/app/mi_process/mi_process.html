@@ -1,0 +1,33 @@
+﻿<section class="mainbar" data-ng-controller="mi_process as vm">
+   <section class="matter">
+      <button type="button" class="btn btn-primary pull-right" data-ng-click="vm.startWeeding()">
+         <span class="glyphicon glyphicon-leaf"></span>Weed
+      </button>
+      <div class="row">
+         <div class="col-md-6 widget wblue" data-ng-show="!vm.finishedProcessing">
+            <div data-cc-widget-header title="Tags" allow-collapse="true"></div>
+            <div class="widget-content text-info">
+               <table class="table table-condensed table-striped">
+                  <thead>
+                     <tr>
+                        <th>##</th>
+                        <th>TagValue</th>
+                        <th>Position</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr data-ng-repeat="p in vm.test">
+                        <td>{{$index + 1}}</td>
+                        <td>{{p.TagValue}}</td>
+                        <td>{{p.Position}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="widget-foot">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+      </div>
+   </section>
+</section>

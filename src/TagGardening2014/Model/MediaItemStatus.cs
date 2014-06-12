@@ -14,7 +14,14 @@ namespace TagGardening2014.Web.Model
     
     public partial class MediaItemStatus
     {
+        public MediaItemStatus()
+        {
+            this.MediaItems = new HashSet<MediaItem>();
+        }
+    
         public int MediaItemStatusId { get; set; }
         public string Description { get; set; }
+    
+        public virtual ICollection<MediaItem> MediaItems { get; set; }
     }
 }

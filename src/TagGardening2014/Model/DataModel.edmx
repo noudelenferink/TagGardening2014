@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TagGardeningModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MediaItem">
+          <Key>
+            <PropertyRef Name="MediaItemId" />
+          </Key>
+          <Property Name="MediaItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaTypeId" Type="int" Nullable="false" />
+          <Property Name="MediaItemStatusId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThumbFileName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MediaItemMediaTag">
+          <Key>
+            <PropertyRef Name="MediaItemMediaTagId" />
+          </Key>
+          <Property Name="MediaItemMediaTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaTagId" Type="int" Nullable="false" />
+          <Property Name="MediaItemId" Type="int" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaItemStatus">
+          <Key>
+            <PropertyRef Name="MediaItemStatusId" />
+          </Key>
+          <Property Name="MediaItemStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaTag">
+          <Key>
+            <PropertyRef Name="MediaTagId" />
+          </Key>
+          <Property Name="MediaTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaTagTypeId" Type="int" />
+          <Property Name="MediaTagValue" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaTagType">
+          <Key>
+            <PropertyRef Name="MediaTagTypeId" />
+          </Key>
+          <Property Name="MediaTagTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaType">
+          <Key>
+            <PropertyRef Name="MediaTypeId" />
+          </Key>
+          <Property Name="MediaTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaItemId" Type="int" Nullable="false" />
+          <Property Name="TagValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_MediaItem_MediaItemStatus">
+          <End Role="MediaItemStatus" Type="Self.MediaItemStatus" Multiplicity="1" />
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItemStatus">
+              <PropertyRef Name="MediaItemStatusId" />
+            </Principal>
+            <Dependent Role="MediaItem">
+              <PropertyRef Name="MediaItemStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItem_MediaType">
+          <End Role="MediaType" Type="Self.MediaType" Multiplicity="1" />
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaType">
+              <PropertyRef Name="MediaTypeId" />
+            </Principal>
+            <Dependent Role="MediaItem">
+              <PropertyRef Name="MediaTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItemMediaTag_MediaItem">
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="1" />
+          <End Role="MediaItemMediaTag" Type="Self.MediaItemMediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItem">
+              <PropertyRef Name="MediaItemId" />
+            </Principal>
+            <Dependent Role="MediaItemMediaTag">
+              <PropertyRef Name="MediaItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItemMediaTag_MediaTag">
+          <End Role="MediaTag" Type="Self.MediaTag" Multiplicity="1" />
+          <End Role="MediaItemMediaTag" Type="Self.MediaItemMediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaTag">
+              <PropertyRef Name="MediaTagId" />
+            </Principal>
+            <Dependent Role="MediaItemMediaTag">
+              <PropertyRef Name="MediaTagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaTag_MediaTagType">
+          <End Role="MediaTagType" Type="Self.MediaTagType" Multiplicity="0..1" />
+          <End Role="MediaTag" Type="Self.MediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaTagType">
+              <PropertyRef Name="MediaTagTypeId" />
+            </Principal>
+            <Dependent Role="MediaTag">
+              <PropertyRef Name="MediaTagTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tag_MediaItem">
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="1" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItem">
+              <PropertyRef Name="MediaItemId" />
+            </Principal>
+            <Dependent Role="Tag">
+              <PropertyRef Name="MediaItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TagGardeningModelStoreContainer">
+          <EntitySet Name="MediaItem" EntityType="Self.MediaItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaItemMediaTag" EntityType="Self.MediaItemMediaTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaItemStatus" EntityType="Self.MediaItemStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaTag" EntityType="Self.MediaTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaTagType" EntityType="Self.MediaTagType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaType" EntityType="Self.MediaType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MediaItem_MediaItemStatus" Association="Self.FK_MediaItem_MediaItemStatus">
+            <End Role="MediaItemStatus" EntitySet="MediaItemStatus" />
+            <End Role="MediaItem" EntitySet="MediaItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItem_MediaType" Association="Self.FK_MediaItem_MediaType">
+            <End Role="MediaType" EntitySet="MediaType" />
+            <End Role="MediaItem" EntitySet="MediaItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItemMediaTag_MediaItem" Association="Self.FK_MediaItemMediaTag_MediaItem">
+            <End Role="MediaItem" EntitySet="MediaItem" />
+            <End Role="MediaItemMediaTag" EntitySet="MediaItemMediaTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItemMediaTag_MediaTag" Association="Self.FK_MediaItemMediaTag_MediaTag">
+            <End Role="MediaTag" EntitySet="MediaTag" />
+            <End Role="MediaItemMediaTag" EntitySet="MediaItemMediaTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaTag_MediaTagType" Association="Self.FK_MediaTag_MediaTagType">
+            <End Role="MediaTagType" EntitySet="MediaTagType" />
+            <End Role="MediaTag" EntitySet="MediaTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tag_MediaItem" Association="Self.FK_Tag_MediaItem">
+            <End Role="MediaItem" EntitySet="MediaItem" />
+            <End Role="Tag" EntitySet="Tag" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TagGardeningModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MediaItem">
+          <Key>
+            <PropertyRef Name="MediaItemId" />
+          </Key>
+          <Property Name="MediaItemId" Type="Int32" Nullable="false" />
+          <Property Name="MediaTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MediaItemStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MediaItemStatus" Relationship="Self.FK_MediaItem_MediaItemStatus" FromRole="MediaItem" ToRole="MediaItemStatus" />
+          <NavigationProperty Name="MediaType" Relationship="Self.FK_MediaItem_MediaType" FromRole="MediaItem" ToRole="MediaType" />
+          <NavigationProperty Name="MediaTags" Relationship="Self.FK_MediaItemMediaTag_MediaItem" FromRole="MediaItem" ToRole="MediaItemMediaTag" />
+          <NavigationProperty Name="Tags" Relationship="Self.FK_Tag_MediaItem" FromRole="MediaItem" ToRole="Tag" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThumbFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MediaItemMediaTag">
+          <Key>
+            <PropertyRef Name="MediaItemMediaTagId" />
+          </Key>
+          <Property Name="MediaItemMediaTagId" Type="Int32" Nullable="false" />
+          <Property Name="MediaTagId" Type="Int32" Nullable="false" />
+          <Property Name="MediaItemId" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MediaItem" Relationship="Self.FK_MediaItemMediaTag_MediaItem" FromRole="MediaItemMediaTag" ToRole="MediaItem" />
+          <NavigationProperty Name="MediaTag" Relationship="Self.FK_MediaItemMediaTag_MediaTag" FromRole="MediaItemMediaTag" ToRole="MediaTag" />
+        </EntityType>
+        <EntityType Name="MediaItemStatus">
+          <Key>
+            <PropertyRef Name="MediaItemStatusId" />
+          </Key>
+          <Property Name="MediaItemStatusId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MediaItems" Relationship="Self.FK_MediaItem_MediaItemStatus" FromRole="MediaItemStatus" ToRole="MediaItem" />
+        </EntityType>
+        <EntityType Name="MediaTag">
+          <Key>
+            <PropertyRef Name="MediaTagId" />
+          </Key>
+          <Property Name="MediaTagId" Type="Int32" Nullable="false" />
+          <Property Name="MediaTagTypeId" Type="Int32" />
+          <Property Name="MediaTagValue" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MediaItemMediaTags" Relationship="Self.FK_MediaItemMediaTag_MediaTag" FromRole="MediaTag" ToRole="MediaItemMediaTag" />
+          <NavigationProperty Name="MediaTagType" Relationship="Self.FK_MediaTag_MediaTagType" FromRole="MediaTag" ToRole="MediaTagType" />
+        </EntityType>
+        <EntityType Name="MediaTagType">
+          <Key>
+            <PropertyRef Name="MediaTagTypeId" />
+          </Key>
+          <Property Name="MediaTagTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MediaTags" Relationship="Self.FK_MediaTag_MediaTagType" FromRole="MediaTagType" ToRole="MediaTag" />
+        </EntityType>
+        <EntityType Name="MediaType">
+          <Key>
+            <PropertyRef Name="MediaTypeId" />
+          </Key>
+          <Property Name="MediaTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MediaItems" Relationship="Self.FK_MediaItem_MediaType" FromRole="MediaType" ToRole="MediaItem" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <Property Name="MediaItemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MediaItem" Relationship="Self.FK_Tag_MediaItem" FromRole="Tag" ToRole="MediaItem" />
+          <Property Name="TagValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_MediaItem_MediaItemStatus">
+          <End Role="MediaItemStatus" Type="TagGardeningModel.MediaItemStatus" Multiplicity="1" />
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItemStatus">
+              <PropertyRef Name="MediaItemStatusId" />
+            </Principal>
+            <Dependent Role="MediaItem">
+              <PropertyRef Name="MediaItemStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItem_MediaType">
+          <End Role="MediaType" Type="Self.MediaType" Multiplicity="1" />
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaType">
+              <PropertyRef Name="MediaTypeId" />
+            </Principal>
+            <Dependent Role="MediaItem">
+              <PropertyRef Name="MediaTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItemMediaTag_MediaItem">
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="1" />
+          <End Role="MediaItemMediaTag" Type="Self.MediaItemMediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItem">
+              <PropertyRef Name="MediaItemId" />
+            </Principal>
+            <Dependent Role="MediaItemMediaTag">
+              <PropertyRef Name="MediaItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tag_MediaItem">
+          <End Role="MediaItem" Type="Self.MediaItem" Multiplicity="1" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaItem">
+              <PropertyRef Name="MediaItemId" />
+            </Principal>
+            <Dependent Role="Tag">
+              <PropertyRef Name="MediaItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaItemMediaTag_MediaTag">
+          <End Role="MediaTag" Type="Self.MediaTag" Multiplicity="1" />
+          <End Role="MediaItemMediaTag" Type="Self.MediaItemMediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaTag">
+              <PropertyRef Name="MediaTagId" />
+            </Principal>
+            <Dependent Role="MediaItemMediaTag">
+              <PropertyRef Name="MediaTagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaTag_MediaTagType">
+          <End Role="MediaTagType" Type="Self.MediaTagType" Multiplicity="0..1" />
+          <End Role="MediaTag" Type="Self.MediaTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaTagType">
+              <PropertyRef Name="MediaTagTypeId" />
+            </Principal>
+            <Dependent Role="MediaTag">
+              <PropertyRef Name="MediaTagTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TagGardeningContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MediaItems" EntityType="Self.MediaItem" />
+          <EntitySet Name="MediaItemMediaTags" EntityType="Self.MediaItemMediaTag" />
+          <EntitySet Name="MediaItemStatus1" EntityType="TagGardeningModel.MediaItemStatus" />
+          <EntitySet Name="MediaTags" EntityType="Self.MediaTag" />
+          <EntitySet Name="MediaTagTypes" EntityType="Self.MediaTagType" />
+          <EntitySet Name="MediaTypes" EntityType="Self.MediaType" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <AssociationSet Name="FK_MediaItem_MediaItemStatus" Association="Self.FK_MediaItem_MediaItemStatus">
+            <End Role="MediaItemStatus" EntitySet="MediaItemStatus1" />
+            <End Role="MediaItem" EntitySet="MediaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItem_MediaType" Association="Self.FK_MediaItem_MediaType">
+            <End Role="MediaType" EntitySet="MediaTypes" />
+            <End Role="MediaItem" EntitySet="MediaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItemMediaTag_MediaItem" Association="Self.FK_MediaItemMediaTag_MediaItem">
+            <End Role="MediaItem" EntitySet="MediaItems" />
+            <End Role="MediaItemMediaTag" EntitySet="MediaItemMediaTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tag_MediaItem" Association="Self.FK_Tag_MediaItem">
+            <End Role="MediaItem" EntitySet="MediaItems" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaItemMediaTag_MediaTag" Association="Self.FK_MediaItemMediaTag_MediaTag">
+            <End Role="MediaTag" EntitySet="MediaTags" />
+            <End Role="MediaItemMediaTag" EntitySet="MediaItemMediaTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaTag_MediaTagType" Association="Self.FK_MediaTag_MediaTagType">
+            <End Role="MediaTagType" EntitySet="MediaTagTypes" />
+            <End Role="MediaTag" EntitySet="MediaTags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TagGardeningModelStoreContainer" CdmEntityContainer="TagGardeningContext">
+          <EntitySetMapping Name="MediaItems">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaItem">
+              <MappingFragment StoreEntitySet="MediaItem">
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ThumbFileName" ColumnName="ThumbFileName" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="MediaItemId" ColumnName="MediaItemId" />
+                <ScalarProperty Name="MediaTypeId" ColumnName="MediaTypeId" />
+                <ScalarProperty Name="MediaItemStatusId" ColumnName="MediaItemStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaItemMediaTags">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaItemMediaTag">
+              <MappingFragment StoreEntitySet="MediaItemMediaTag">
+                <ScalarProperty Name="MediaItemMediaTagId" ColumnName="MediaItemMediaTagId" />
+                <ScalarProperty Name="MediaTagId" ColumnName="MediaTagId" />
+                <ScalarProperty Name="MediaItemId" ColumnName="MediaItemId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaItemStatus1">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaItemStatus">
+              <MappingFragment StoreEntitySet="MediaItemStatus">
+                <ScalarProperty Name="MediaItemStatusId" ColumnName="MediaItemStatusId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaTags">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaTag">
+              <MappingFragment StoreEntitySet="MediaTag">
+                <ScalarProperty Name="MediaTagId" ColumnName="MediaTagId" />
+                <ScalarProperty Name="MediaTagTypeId" ColumnName="MediaTagTypeId" />
+                <ScalarProperty Name="MediaTagValue" ColumnName="MediaTagValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaTagTypes">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaTagType">
+              <MappingFragment StoreEntitySet="MediaTagType">
+                <ScalarProperty Name="MediaTagTypeId" ColumnName="MediaTagTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaTypes">
+            <EntityTypeMapping TypeName="TagGardeningModel.MediaType">
+              <MappingFragment StoreEntitySet="MediaType">
+                <ScalarProperty Name="MediaTypeId" ColumnName="MediaTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="TagGardeningModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="TagValue" ColumnName="TagValue" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="MediaItemId" ColumnName="MediaItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

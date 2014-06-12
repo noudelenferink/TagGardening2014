@@ -1,0 +1,90 @@
+﻿<section class="mainbar" data-ng-controller="mi_details as vm">
+   <section class="matter">
+      <div class="row">
+         <div class="col-md-12">
+            <a class="btn btn-info pull-left" href="#/gallery">
+               <i class="fa fa-arrow-left fa-lg"></i> Back
+            </a>
+            <a class="btn btn-success pull-right" href="#/mi_process/{{vm.test.MediaItemId}}">
+               <i class="fa fa-gears fa-lg"></i> Process
+            </a>
+         </div>
+      </div>
+      <div class="container">
+      <div class="row">
+         <div class="col-md-6 widget wblue">
+            <div data-cc-widget-header title="{{vm.test.Title}}"></div>
+            <div class="widget-content text-info">
+               <h2 id=" mediaitemtitle">{{vm.test.Title}}</h2>
+               <div class="VideoContainer">
+                  <div class="Overlay"></div>
+                  <video runat="server" id="Video" width="640" height="385" data-ng-src="{{vm.test.FileName}}" title="{{vm.test.MediaItemId}}" visible="False" style="background-color: black">
+                     Your browser does not support the video tag.
+                  </video>
+                  <div class="controls">
+                     <div class="buttonPlay paused"></div>
+                     <div class="slider"></div>
+                     <div class="timeInfo"></div>
+                  </div>
+               </div>
+               <!--<div class="row">
+                      <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264" data-setup="{}">
+                         <source data-ng-src="http://nifnic.nl/test23.webm" type='video/webm' />
+                         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                      </video>
+                   </div>-->
+            </div>
+         </div>
+         <div class="col-md-6 widget wblue" data-ng-show="vm.finishedProcessing">
+            <div data-cc-widget-header title="MediaTags" allow-collapse="true"></div>
+            <div class="widget-content text-info">
+               <table class="table table-condensed table-striped">
+                  <thead>
+                     <tr>
+                        <th>##</th>
+                        <th>Value</th>
+                        <th>Type</th>
+                        <th>Position</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr data-ng-repeat="p in vm.test.MediaTags">
+                        <td>{{$index + 1}}</td>
+                        <td>{{p.MediaTag.MediaTagValue}}</td>
+                        <td>{{p.MediaTag.MediaTagType.Description}}</td>
+                        <td>{{p.Position}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="widget-foot">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+         <div class="col-md-6 widget wblue" data-ng-show="!vm.finishedProcessing">
+            <div data-cc-widget-header title="Tags" allow-collapse="true"></div>
+            <div class="widget-content text-info">
+               <table class="table table-condensed table-striped">
+                  <thead>
+                     <tr>
+                        <th>##</th>
+                        <th>TagValue</th>
+                        <th>Position</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr data-ng-repeat="p in vm.test.Tags">
+                        <td>{{$index + 1}}</td>
+                        <td>{{p.TagValue}}</td>
+                        <td>{{p.Position}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="widget-foot">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+      </div>
+   </section>
+</section>

@@ -14,10 +14,16 @@ namespace TagGardening2014.Web.Model
     
     public partial class MediaTag
     {
-        public int MediaTagId { get; set; }
-        public int MediaTagTypeId { get; set; }
-        public string MediaTagValue2 { get; set; }
+        public MediaTag()
+        {
+            this.MediaItemMediaTags = new HashSet<MediaItemMediaTag>();
+        }
     
+        public int MediaTagId { get; set; }
+        public Nullable<int> MediaTagTypeId { get; set; }
+        public string MediaTagValue { get; set; }
+    
+        public virtual ICollection<MediaItemMediaTag> MediaItemMediaTags { get; set; }
         public virtual MediaTagType MediaTagType { get; set; }
     }
 }

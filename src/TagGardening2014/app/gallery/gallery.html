@@ -1,0 +1,63 @@
+﻿<style>
+.GalleryItem {
+  width: 150px;
+  border-style: solid;
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  text-align: center;
+  box-sizing: content-box;
+  -moz-background-clip: content-box;
+  -webkit-background-clip: content-box;
+  background-clip: content-box;
+}
+.GalleryItem .ThumbContainer {
+  width: 150px;
+  height: 150px;
+  background-color: black;
+  display: table-cell;
+  vertical-align: middle;
+   position: relative;
+}
+.GalleryItem .ThumbContainer a {
+  padding: 0;
+  display: inline-block;
+}
+.GalleryItem .ThumbContainer a:hover {
+  background: none;
+}
+.GalleryItem span {
+  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  margin: 5px 0;
+  width: 100%;
+}
+</style>
+<section class="mainbar" data-ng-controller="gallery as vm">
+   <section class="matter">
+      <div class="container">
+         <div class="row">
+            <div class="widget wblue">
+               <div data-cc-widget-header title="Gallery"></div>
+               <div class="widget-content text-center text-info">
+                  <div style="display:flex">
+                     <div data-ng-repeat="mi in vm.test" class="GalleryItem">
+                        <div class="ThumbContainer">
+                           <a href="#/mi_details/{{mi.MediaItemId}}"><img data-ng-src="Media\{{mi.ThumbFileName}}" alt="{{mi.Title}}" /></a>
+                           <i class="fa fa-check-circle fa-3x" style="position: absolute; right: 3px; bottom: 0; color: yellowgreen" data-ng-show="mi.MediaItemStatusId == 2"></i>
+                        </div>
+                        <span title="{{mi.Title}}">{{mi.Title}} [{{mi.Tags.length}}]</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</section>
+

@@ -9,7 +9,7 @@
 
         var service = {
             getPeople: getPeople,
-            getMessageCount: getMessageCount
+            getMessageCount: getMessageCount,
         };
 
         return service;

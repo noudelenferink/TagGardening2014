@@ -1,8 +1,8 @@
 using System.Web.Http;
 
 [assembly: WebActivator.PreApplicationStartMethod(
-    typeof(TagGardening2014.Web.BreezeWebApiConfig), "RegisterBreezePreStart")]
-namespace TagGardening2014.Web
+    typeof(TagGardening2014.Web.App_Start.BreezeWebApiConfig), "RegisterBreezePreStart")]
+namespace TagGardening2014.Web.App_Start
 {
    ///<summary>
    /// Inserts the Breeze Web API controller route at the front of all Web API routes
@@ -13,10 +13,9 @@ namespace TagGardening2014.Web
    ///</remarks>
    public static class BreezeWebApiConfig
    {
-
+      
       public static void RegisterBreezePreStart()
       {
-         //// TODO - Examine why 'BreezeApi' is already present at this point.
          if (!GlobalConfiguration.Configuration.Routes.ContainsKey("BreezeApi"))
          {
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(

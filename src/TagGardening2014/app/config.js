@@ -31,6 +31,10 @@
             $logProvider.debugEnabled(true);
         }
     }]);
+
+    app.config(['$sceDelegateProvider', function ($sceDelegateProvider) {
+       $sceDelegateProvider.resourceUrlWhitelist(['http://noudelenferink.synology.me/tg2014/**', 'self']);
+    }]);
     
     //#region Configure the common services via commonConfig
     app.config(['commonConfigProvider', function (cfg) {

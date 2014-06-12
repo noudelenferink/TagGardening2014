@@ -16,10 +16,10 @@ namespace TagGardening2014.Web.Model
     {
         public int MediaItemMediaTagId { get; set; }
         public int MediaTagId { get; set; }
-        public string Position { get; set; }
         public int MediaItemId { get; set; }
+        public string Position { get; set; }
     
-        public virtual MediaTag MediaTag { get; set; }
         public virtual MediaItem MediaItem { get; set; }
+        public virtual MediaTag MediaTag { get; set; }
     }
 }

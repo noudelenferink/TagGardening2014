@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1d8e247002b466e909973df416f1ca7" Name="Diagram1">
+        <EntityTypeShape EntityType="TagGardeningModel.MediaItem" Width="1.75" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.MediaItemMediaTag" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.MediaItemStatus" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.MediaTag" Width="1.5" PointX="5.375" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.MediaTagType" Width="1.5" PointX="3.125" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.MediaType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TagGardeningModel.Tag" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="TagGardeningModel.FK_MediaItem_MediaItemStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="TagGardeningModel.FK_MediaItem_MediaType" ManuallyRouted="false" />
+        <AssociationConnector Association="TagGardeningModel.FK_MediaItemMediaTag_MediaItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TagGardeningModel.FK_Tag_MediaItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TagGardeningModel.FK_MediaItemMediaTag_MediaTag" ManuallyRouted="false" />
+        <AssociationConnector Association="TagGardeningModel.FK_MediaTag_MediaTagType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

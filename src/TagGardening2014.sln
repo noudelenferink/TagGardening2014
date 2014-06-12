@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagGardening2014.Web", "TagGardening2014\TagGardening2014.Web.csproj", "{DF2AFF86-CF47-42AA-989A-291E6E780DA4}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TagGardening2014.Database", "Database\TagGardening2014.Database.sqlproj", "{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{DF2AFF86-CF47-42AA-989A-291E6E780DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2AFF86-CF47-42AA-989A-291E6E780DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2AFF86-CF47-42AA-989A-291E6E780DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88106382-EF76-4AA0-AB59-D3E05FFDEEC4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

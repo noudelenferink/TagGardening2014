@@ -2,13 +2,9 @@
 {
    using System.Collections.Generic;
 
-   public class WordProcessResult
+   public class TagProcessResult
    {
       public int TagId { get; set; }
-      public string Word { get; set; }
-
-      public bool IsCorrect { get; set; }
-
-      public List<string> Suggestions { get; set; }
+      public List<WordProcessResult> WordProcessResultList { get; set; }
    }
 }

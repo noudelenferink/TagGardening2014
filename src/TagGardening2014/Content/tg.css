@@ -1,0 +1,23 @@
+﻿.processedWord {
+   padding: 2px;
+   border: 1px solid grey;
+   background-color: lightgray;
+   font-weight: bold;
+   margin-left: 2px;
+   margin-right: 2px;
+}
+
+.processedWord.incorrect {
+   color: red;
+}
+
+.processedWord.correct {
+   color: black;
+}
+
+.processedWordList {
+   list-style-type: none;
+   display: flex;
+   padding: 0;
+   margin: 0;
+}

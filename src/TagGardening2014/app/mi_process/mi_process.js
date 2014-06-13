@@ -2,16 +2,17 @@
 {
    'use strict';
    var controllerId = 'mi_process';
-   angular.module('app').controller(controllerId, ['common', 'testservice', '$routeParams', mi_process]);
+   angular.module('app').controller(controllerId, ['common', 'testservice', '$scope', '$routeParams', mi_process]);
 
-   function mi_process(common, testservice, $routeParams)
+   function mi_process(common, testservice, $scope, $routeParams)
    {
       var getLogFn = common.logger.getLogFn;
       var log = getLogFn(controllerId);
       var vm = this;
       vm.title = 'Media Item - Process';
       vm.test = {};
-
+      vm.resultSet = {};
+      vm.hasResultSet = false;
       vm.startWeeding = startWeeding;
 
       activate();
@@ -40,6 +41,7 @@
       }
 
       function startWeeding() {
+         vm.hasResultSet = false;
          var tagArray = [];
          vm.test.forEach(function(tag) {
             var jsonObject = {};
@@ -48,23 +50,21 @@
             tagArray.push(jsonObject);
          });
 
-         //example data
-         var Titles = [
-             { 'title': 'Steve' }, { 'title': 'John' }, { 'title': 'Andrew' }
-         ];
-         var myJSON = JSON.stringify({ TagSet: tagArray });
-         console.log(myJSON);
+         var jsonObjectSet = JSON.stringify({ TagSet: tagArray });
          $.ajax({
             async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'text',
             type: "POST",
-            data: myJSON,
+            data: jsonObjectSet,
             url: "Handlers/TagHandler.ashx",
             success: function (msg)
             {
                console.log(msg);
-               window.result = JSON.parse(msg);
+               vm.resultSet = JSON.parse(msg);
+               window.resultSet = vm.resultSet;
+               vm.hasResultSet = true;
+               $scope.$apply();
             },
             error: function(msg) {
                console.log(msg);
@@ -72,6 +72,6 @@
          });
       }
 
-      
+      return vm;
    }
 })();

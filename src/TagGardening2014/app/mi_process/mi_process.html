@@ -1,25 +1,63 @@
 ﻿<section class="mainbar" data-ng-controller="mi_process as vm">
    <section class="matter">
-      <button type="button" class="btn btn-primary pull-right" data-ng-click="vm.startWeeding()">
-         <span class="glyphicon glyphicon-leaf"></span>Weed
-      </button>
       <div class="row">
-         <div class="col-md-6 widget wblue" data-ng-show="!vm.finishedProcessing">
+         <div class="col-md-4 widget wblue">
             <div data-cc-widget-header title="Tags" allow-collapse="true"></div>
             <div class="widget-content text-info">
                <table class="table table-condensed table-striped">
                   <thead>
                      <tr>
-                        <th>##</th>
+                        <th class="text-right">##</th>
                         <th>TagValue</th>
                         <th>Position</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr data-ng-repeat="p in vm.test">
-                        <td>{{$index + 1}}</td>
+                        <td class="text-right">{{$index + 1}}</td>
                         <td>{{p.TagValue}}</td>
                         <td>{{p.Position}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div class="text-right">
+                  <button type="button" class="btn btn-primary" data-ng-click="vm.startWeeding()">
+                     <span class="glyphicon glyphicon-leaf"></span> Weed
+                  </button>
+               </div>
+            </div>
+            <div class="widget-foot">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+         <div class="col-md-4 widget wblue" data-ng-show="vm.hasResultSet">
+            <div data-cc-widget-header title="Tags" allow-collapse="true"></div>
+            <div class="widget-content text-info">
+               <table class="table table-condensed table-striped">
+                  <thead>
+                     <tr>
+                        <th class="text-right">##</th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr data-ng-repeat="p in vm.resultSet">
+                        <td class="text-right">{{$index + 1}}</td>
+                        <td>
+                           <ul class="processedWordList">
+                              <li data-ng-repeat="wr in p.WordProcessResultList">
+                                 <span class="processedWord" data-ng-if="wr.IsCorrect">{{wr.Word}}</span>
+                                 <div class="btn-group" data-ng-if="!wr.IsCorrect">
+                                    <button type="button" class="btn btn-xs btn-danger dropdown-toggle" data-toggle="dropdown">
+                                       {{wr.Word}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" data-ng-repeat="suggestion in wr.Suggestions" role="menu">
+                                       <li><a href="#">{{suggestion}}</a></li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </td>
                      </tr>
                   </tbody>
                </table>

@@ -163,6 +163,7 @@
     <Content Include="Content\images\breezelogo.png" />
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\tg.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -246,6 +247,7 @@
     <Compile Include="Handlers\TagHandler.ashx.cs">
       <DependentUpon>TagHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TagProcessResult.cs" />
     <Compile Include="Model\DataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -282,7 +284,7 @@
     <Compile Include="Model\Tag.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\TagProcessResult.cs" />
+    <Compile Include="Helpers\WordProcessResult.cs" />
     <Compile Include="Processors\TagProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

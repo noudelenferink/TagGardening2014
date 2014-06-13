@@ -59,7 +59,7 @@
          return result;
       }
 
-      public static List<WordProcessResult> GetSpellCheckForTags(List<TagSimple> tagSet)
+      public static List<TagProcessResult> GetSpellCheckForTags(List<TagSimple> tagSet)
       {
          var resultSet = new List<WordProcessResult>();
          
@@ -67,8 +67,8 @@
          {
             tag.TagValue.Split(' ').ToList().ForEach(w => resultSet.Add(ProcessWord(w, tag.TagId)));
          }
-
-         return resultSet;
+         var groupedResultSet = resultSet.GroupBy(r => r.TagId).Select(i => new TagProcessResult{ TagId = i.Key, WordProcessResultList = i.ToList()}).ToList();
+         return groupedResultSet;
       }
 
       private static WordProcessResult ProcessWord(string word, int tagId)

@@ -51,6 +51,7 @@
          });
 
          var jsonObjectSet = JSON.stringify({ TagSet: tagArray });
+         console.log('process request sent');
          $.ajax({
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -62,6 +63,11 @@
             {
                console.log(msg);
                vm.resultSet = JSON.parse(msg);
+               vm.resultSet.forEach(function(group) {
+                  group.TagProcessResultList.forEach(function(tag) {
+                     tag.IsParentTag = tag.IsDupliceReference || tag.IsRelatedReference;
+                  });
+               });
                window.resultSet = vm.resultSet;
                vm.hasResultSet = true;
                $scope.$apply();

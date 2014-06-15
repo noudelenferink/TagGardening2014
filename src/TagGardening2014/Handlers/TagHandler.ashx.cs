@@ -7,6 +7,7 @@
    using System.Web;
    using System.Web.Script.Serialization;
    using Globals;
+   using Helpers;
    using Processors;
 
    /// <summary>
@@ -30,8 +31,18 @@
             var stream = sr.ReadToEnd();
             var javaScriptSerializer = new JavaScriptSerializer();
             var PostedData = javaScriptSerializer.Deserialize<TagSetObject>(stream);
-            var result = TagProcessor.GetSpellCheckForTags(PostedData.TagSet);
-            context.Response.Write(javaScriptSerializer.Serialize(result));
+            //var result = TagProcessor.GetSpellCheckForTags(PostedData.TagSet);
+            var test = TagProcessor.ProcessTagSet(PostedData.TagSet);
+            var groupedResult = (from tpr in test
+                                let identifier = tpr.DuplicateTagId ?? tpr.RelatedTagId ?? tpr.TagId
+                                group tpr by identifier into groupedTagResults
+                                select new GroupedTagResult
+                                {
+                                   GroupId = groupedTagResults.Key,
+                                   TagProcessResultList = groupedTagResults.ToList()
+                                }).ToList();
+
+            context.Response.Write(javaScriptSerializer.Serialize(groupedResult));
          }
          catch (Exception msg) { context.Response.Write(msg.Message); }
       }

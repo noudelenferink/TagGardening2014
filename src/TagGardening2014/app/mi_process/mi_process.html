@@ -41,22 +41,12 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr data-ng-repeat="p in vm.resultSet">
+                     <tr data-ng-repeat="group in vm.resultSet">
                         <td class="text-right">{{$index + 1}}</td>
                         <td>
-                           <ul class="processedWordList">
-                              <li data-ng-repeat="wr in p.WordProcessResultList">
-                                 <span class="processedWord" data-ng-if="wr.IsCorrect">{{wr.Word}}</span>
-                                 <div class="btn-group" data-ng-if="!wr.IsCorrect">
-                                    <button type="button" class="btn btn-xs btn-danger dropdown-toggle" data-toggle="dropdown">
-                                       {{wr.Word}} <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" data-ng-repeat="suggestion in wr.Suggestions" role="menu">
-                                       <li><a href="#">{{suggestion}}</a></li>
-                                    </ul>
-                                 </div>
-                              </li>
-                           </ul>
+                           <div data-ng-repeat="tpr in group.TagProcessResultList | orderObjectBy:'IsParentTag':true">
+                              <div data-ng-repeat="wpr in tpr.WordProcessResultList" class="processedWord" data-ng-class="wpr.Skip ? 'incorrect' : 'correct'">{{wpr.Word}}</div>
+                           </div>
                         </td>
                      </tr>
                   </tbody>
